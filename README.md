@@ -1,3 +1,9 @@
+# Описание системы
+
+[Анализ и планирование](./docs/Анализ%20и%20планирование.md)
+
+[Проектирование микросервисной архитектуры](./docs/Проектирование%20микросервисной%20архитектуры.md)
+
 # Базовая настройка
 
 ## Запуск minikube
@@ -29,7 +35,7 @@ kusk cluster install
 После того как вы сделали форк репозитория и у вас в репозитории отработал GitHub Action. Вам нужно получить адрес образа <https://github.com/><github_username>/architecture-sprint-3/pkgs/container/architecture-sprint-3
 
 Он выглядит таким образом
-```ghcr.io/<github_username>/architecture-sprint-3:latest```
+`ghcr.io/<github_username>/architecture-sprint-3:latest`
 
 Замените адрес образа в файле `helm/smart-home-monolith/values.yaml` на полученный файл:
 
