@@ -76,6 +76,12 @@ provider_installation {
 }
 ```
 
+## Запрашиваем зависимости
+
+```bash
+helm dependency build
+```
+
 ## Применяем terraform конфигурацию
 
 ```bash
@@ -93,8 +99,8 @@ kusk deploy -i api.yaml
 ## Проверяем работоспособность
 
 ```bash
-kubectl port-forward svc/kusk-gateway-envoy-fleet -n kusk-system 8080:80
-curl localhost:8080/hello
+kubectl port-forward svc/kusk-gateway-envoy-fleet -n kusk-system 4000:80
+curl localhost:4000/hello
 ```
 
 ## Delete minikube
