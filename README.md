@@ -14,6 +14,12 @@
 minikube start
 ```
 
+Через Virtual-Box
+
+```bash
+ minikube start --driver=virtualbox --no-vtx-check
+```
+
 ## Добавление токена авторизации GitHub
 
 [Получение токена](https://github.com/settings/tokens/new)
@@ -22,12 +28,19 @@ minikube start
 kubectl create secret docker-registry ghcr --docker-server=https://ghcr.io --docker-username=<github_username> --docker-password=<github_token> -n default
 ```
 
-## Установка API GW kusk
+## Установка API GW Kusk
 
 [Install Kusk CLI](https://docs.kusk.io/getting-started/install-kusk-cli)
 
 ```bash
 kusk cluster install
+```
+
+## Установка и запуск дашбордов
+
+```bash
+minikube dashboard --url
+kusk dashboard
 ```
 
 ## Смена адреса образа в helm chart
@@ -37,7 +50,7 @@ kusk cluster install
 Он выглядит таким образом
 `ghcr.io/<github_username>/architecture-sprint-3:latest`
 
-Замените адрес образа в файле `helm/smart-home-monolith/values.yaml` на полученный файл:
+Замените адрес образа в файле `charts/smart-home-monolith/values.yaml` на полученный файл:
 
 ```yaml
 image:
