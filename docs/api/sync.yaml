@@ -1,0 +1,328 @@
+openapi: 3.0.1
+info:
+  title: Тёплый дом API
+  description: Тёплый дом API
+  version: 1.0.0
+paths:
+  /devices/{deviceId}:
+    get:
+      tags:
+        - Управление устройствами
+      summary: Получить информацию об устройстве
+      operationId: getDeviceInfo
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешный ответ с информацией об устройстве
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceInfo'
+        '400':
+          description: Невалидный запрос или ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Устройство не найдено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+    post:
+      tags:
+        - Управление устройствами
+      summary: Добавить устройство
+      operationId: addDevice
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceInfoRequest'
+      responses:
+        '201':
+          description: Успешное добавление устройства
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceInfo'
+        '400':
+          description: Невалидный запрос или ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+    delete:
+      tags:
+        - Управление устройствами
+      summary: Удалить устройство
+      operationId: deleteDevice
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Успешное удаление устройства
+        '400':
+          description: Невалидный запрос или ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Устройство не найдено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+  /devices/{deviceId}/status:
+    patch:
+      tags:
+        - Управление устройствами
+      summary: Обновление состояния устройства
+      operationId: updateDeviceStatus
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceStatusRequest'
+      responses:
+        '200':
+          description: Успешный ответ с информацией об устройстве
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceInfo'
+        '400':
+          description: Невалидный запрос или ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Устройство не найдено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+  /devices/{deviceId}/command:
+    post:
+      tags:
+        - Управление устройствами
+      summary: Обновление состояния устройства
+      operationId: updateDeviceStatus
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceCommandRequest'
+      responses:
+        '200':
+          description: Успешный ответ с информацией об устройстве
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceInfo'
+        '400':
+          description: Невалидный запрос или ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Устройство не найдено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+components:
+  schemas:
+    DeviceInfoRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Название устройства
+        typeId:
+          type: string
+          description: Идентификатор типа устройства
+        houseId:
+          type: string
+          description: Идентификатор дома
+        moduleId:
+          type: string
+          description: Идентификатор модуля
+        serialNumber:
+          type: string
+          description: Серийный номер устройства
+    DeviceStatusRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Состояние устройства
+    DeviceCommandRequest:
+      type: object
+      properties:
+        command:
+          type: string
+          description: Команда устройства
+    DeviceType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Идентификатор типа устройства
+        name:
+          type: string
+          description: Название типа устройства
+        description:
+          type: string
+          description: Описание типа устройства
+    House:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Идентификатор дома
+        name:
+          type: string
+          description: Наименование дома
+        address:
+          type: string
+          description: Адрес дома
+        user:
+          description: Пользователь, владеющий домом
+          $ref: '#/components/schemas/User'
+          type: object
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Идентификатор пользователя
+        name:
+          type: string
+          description: Имя пользователя
+        email:
+          type: string
+          description: Почта пользователя
+        password:
+          type: string
+          description: Пароль пользователя
+    Module:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Идентификатор модуля
+        name:
+          type: string
+          description: Название модуля
+    DeviceInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Идентификатор устройства
+        name:
+          type: string
+          description: Название устройства
+        type:
+          description: Тип устройства
+          $ref: '#/components/schemas/DeviceType'
+          type: object
+        house:
+          description: Дом, к которому привязано устройство
+          $ref: '#/components/schemas/House'
+          type: object
+        module:
+          description: Модуль, к которому привязано устройство
+          $ref: '#/components/schemas/Module'
+          type: object
+        serialNumber:
+          type: string
+          description: Серийный номер устройства
+        status:
+          type: boolean
+          description: Статус устройства
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Сообщение об ошибке
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

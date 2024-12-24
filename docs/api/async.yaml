@@ -1,0 +1,46 @@
+asyncapi: 3.0.0
+info:
+  title: Тёплый дом Async API
+  description: Тёплый дом Async API
+  version: 1.0.0
+channels:
+  device-manager:
+    address: device-manager
+    messages:
+      sendDeviceCommand:
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            deviceId:
+              type: number
+            command:
+              type: string
+            timestamp:
+              type: number
+      receiveDeviceCommand:
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            deviceId:
+              type: number
+            command:
+              type: string
+            timestamp:
+              type: number
+operations:
+  sendDeviceCommand:
+    action: receive
+    channel:
+      $ref: '#/channels/device-manager'
+    summary: Отправить команду устройству
+    messages:
+      - $ref: '#/channels/device-manager/messages/sendDeviceCommand'
+  receiveDeviceCommand:
+    action: send
+    channel:
+      $ref: '#/channels/device-manager'
+    summary: Принять команду устройству
+    messages:
+      - $ref: '#/channels/device-manager/messages/receiveDeviceCommand'
