@@ -40,7 +40,7 @@ kusk cluster install
 
 ```bash
 minikube dashboard --url
-kusk dashboard
+kusk cluster install && kusk dashboard
 ```
 
 ## Смена адреса образа в helm chart
